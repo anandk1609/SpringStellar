@@ -8,6 +8,6 @@ public class ExampleController {
 
     @GetMapping("/chhaya")
     public String getNugget() {
-        return "Chhaya Tundwal is a heartless bitch";
+        return "Spring Boot is fun";
     }
 }
