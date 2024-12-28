@@ -1,5 +1,6 @@
 package com.future.springboot_restful_webservices.controller;
 
+import com.future.springboot_restful_webservices.dto.UserDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.future.springboot_restful_webservices.entity.User;
@@ -26,7 +27,7 @@ public class UserController {
     // Build create User REST API
     // http://localhost:8080/api/users
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO user) {
         logger.debug("Recieved user: {}", user);
 
         if(user.getFirstName() == null || user.getLastName() == null || user.getEmail() == null) {
@@ -35,33 +36,33 @@ public class UserController {
         }
 
         logger.debug("No missing field");
-        User savedUser = userService.createUser(user);
+        UserDTO savedUser = userService.createUser(user);
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
 
     // Build get user by id REST API
     // http://localhost:8080/api/users/1
     @GetMapping("{id}")
-    public ResponseEntity<User> getUserById(@PathVariable("id") Long userId) {
-        User user = userService.getUserById(userId);
+    public ResponseEntity<UserDTO> getUserById(@PathVariable("id") Long userId) {
+        UserDTO user = userService.getUserById(userId);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     // Build get all users REST API
     // http://localhost:8080/api/users
     @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
-        List<User> users = userService.getAllUsers();
+    public ResponseEntity<List<UserDTO>> getAllUsers() {
+        List<UserDTO> users = userService.getAllUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     // Build Update User REST API
     // http://localhost:8080/api/users/1
     @PutMapping("{id}")
-    public ResponseEntity<User> updateUser(@PathVariable("id") Long userId,
-                                           @RequestBody User user) {
-        user.setId(userId);
-        User updatedUser = userService.updateUser(user);
+    public ResponseEntity<UserDTO> updateUser(@PathVariable("id") Long userId,
+                                           @RequestBody UserDTO userDTO) {
+        userDTO.setId(userId);
+        UserDTO updatedUser = userService.updateUser(userDTO);
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 
